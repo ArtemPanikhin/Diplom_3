@@ -3,6 +3,10 @@ import pytest
 
 from data import DataForAuth
 from locators.order_feed_page_locators import OrderFeedPageLocators
+from pages.main_page import MainPage
+from pages.order_feed_page import OrderFeedPage
+from pages.profile_page import ProfilePage
+
 
 class TestOrderFeed:
     @allure.title('При создании нового заказа счётчик "Выполнено за всё время" и "Выполнено за сегодня" увеличивается')
@@ -10,7 +14,11 @@ class TestOrderFeed:
         OrderFeedPageLocators.COUNT_ORDERS_FOR_ALL_TIME,
         OrderFeedPageLocators.COUNT_ORDERS_TODAY
     ])
-    def test_orders_increasing_with_new_order(self, driver, main_page, profile_page, order_feed_page, counter):
+    def test_orders_increasing_with_new_order(self, driver, counter):
+        main_page = MainPage(driver)
+        profile_page = ProfilePage(driver)
+        order_feed_page = OrderFeedPage(driver)
+
         with allure.step("Авторизация пользователя"):
             main_page.click_sign_in_button()
             profile_page.login_user(DataForAuth.TEST_EMAIL, DataForAuth.TEST_PASSWORD)
@@ -27,7 +35,11 @@ class TestOrderFeed:
             assert new_count > initial_count
 
     @allure.title('После оформления заказа его номер появляется в разделе "В работе"')
-    def test_order_displaying_in_progress(self, driver, main_page, profile_page, order_feed_page):
+    def test_order_displaying_in_progress(self, driver):
+        main_page = MainPage(driver)
+        profile_page = ProfilePage(driver)
+        order_feed_page = OrderFeedPage(driver)
+
         with allure.step('Авторизация пользователя'):
             main_page.click_sign_in_button()
             profile_page.login_user(DataForAuth.TEST_EMAIL, DataForAuth.TEST_PASSWORD)

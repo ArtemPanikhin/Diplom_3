@@ -28,17 +28,3 @@ def driver(request):
     yield driver
     driver.quit()
 
-@pytest.fixture
-def main_page(driver):
-    main_page = MainPage(driver)
-    return main_page
-
-@pytest.fixture
-def profile_page(driver):
-    profile_page = ProfilePage(driver)
-    return profile_page
-
-@pytest.fixture
-def order_feed_page(driver):
-    order_feed_page = OrderFeedPage(driver)
-    return order_feed_page

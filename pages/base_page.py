@@ -51,12 +51,6 @@ class BasePage:
     def navigate_to(self, url):
         self.driver.get(url)
 
-    # @allure.step('Перемещение элемента на другой элемент')
-    # def move_element(self, locator_element, locator_target):
-    #     element = self.find_and_wait_element_until_visible(locator_element)
-    #     target = self.find_and_wait_element_until_visible(locator_target)
-    #     drag_and_drop(self.driver, element, target)
-
     @allure.step('Подождать изменение текста элемента')
     def wait_text_element_to_change(self, test_locator, value):
         return WebDriverWait(self.driver, 15).until_not(EC.text_to_be_present_in_element(test_locator, value))
